@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pompe à chaleur à 1 € — Étude d'éligibilité gratuite | Énergie Habitat</title>
+<meta name="description" content="Vérifiez gratuitement votre éligibilité à une pompe à chaleur à 1 €. Étude sans engagement, réponse rapide, accompagnement personnalisé pour les propriétaires de maison individuelle.">
+<meta name="keywords" content="pompe à chaleur 1 euro, PAC 1 euro, éligibilité pompe à chaleur, chauffage économique">
+<meta property="og:title" content="Pompe à chaleur à 1 € — Étude d'éligibilité gratuite">
+<meta property="og:description" content="Réduisez vos dépenses énergétiques et améliorez le confort de votre logement. Étude d'éligibilité gratuite et sans engagement.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0a1628;
+    --navy-900:#0d1e35;
+    --navy-800:#132b4a;
+    --blue-600:#2f6feb;
+    --blue-500:#4a86f5;
+    --green-500:#1fa971;
+    --green-600:#17835a;
+    --white:#ffffff;
+    --gray-50:#f6f8fb;
+    --gray-100:#eef2f7;
+    --gray-300:#cbd5e1;
+    --gray-500:#64748b;
+    --gray-600:#475569;
+    --gray-700:#334155;
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --shadow-soft:0 20px 50px -20px rgba(10,22,40,.25);
+    --shadow-card:0 10px 30px -12px rgba(10,22,40,.18);
+    --container:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--navy-900);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Manrope',system-ui,sans-serif;font-weight:800;color:var(--navy-950);line-height:1.15}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 24px}
+  section{padding:96px 0}
+  .eyebrow{color:var(--blue-600);font-weight:700;font-size:.95rem;margin-bottom:14px;display:block}
+  .lead{color:var(--gray-600);font-size:1.15rem;max-width:640px}
+  .center{text-align:center;margin-left:auto;margin-right:auto}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:17px 34px;border-radius:100px;font-weight:700;font-size:1rem;
+    border:none;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
+    font-family:'Manrope',sans-serif;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--blue-600),#1d54c9);color:#fff;box-shadow:0 14px 30px -10px rgba(47,111,235,.55)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 38px -12px rgba(47,111,235,.6)}
+  .btn-outline{background:#fff;color:var(--navy-900);border:1.5px solid var(--gray-300)}
+  .btn-outline:hover{border-color:var(--blue-600);color:var(--blue-600)}
+  .btn-light{background:#fff;color:var(--navy-950)}
+  .btn-light:hover{transform:translateY(-2px)}
+  .btn[disabled]{opacity:.7;cursor:not-allowed;transform:none}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;background:rgba(10,22,40,.92);
+    backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:var(--container);margin:0 auto}
+  .brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:'Manrope',sans-serif;font-weight:800;font-size:1.15rem}
+  .brand-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--green-500),var(--blue-600));display:flex;align-items:center;justify-content:center}
+  .nav-links{display:flex;gap:28px;color:#cdd8ea;font-size:.95rem;font-weight:500}
+  .nav-links a:hover{color:#fff}
+  .nav .btn-primary{padding:12px 24px;font-size:.9rem}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* Hero */
+  .hero{
+    background:radial-gradient(circle at 15% 0%,#12335f 0%,var(--navy-950) 55%);
+    color:#fff;padding:80px 0 110px;position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;
+    background:radial-gradient(circle,rgba(31,169,113,.22),transparent 70%);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative;z-index:1}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:100px;
+    font-size:.85rem;color:#d8e3f7;margin-bottom:26px;
+  }
+  .hero-badge span.dot{width:7px;height:7px;border-radius:50%;background:var(--green-500)}
+  .hero h1{font-size:clamp(2.4rem,4.4vw,3.6rem);letter-spacing:-.02em;color:#fff}
+  .hero .lead{color:#c7d4ea;margin-top:20px;font-size:1.2rem;max-width:520px}
+  .hero-conditions{color:#93a5c4;font-size:.88rem;margin-top:16px;max-width:480px}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:34px;align-items:center}
+  .hero-reassurance{display:flex;align-items:center;gap:10px;color:#a9b9d6;font-size:.92rem;margin-top:26px}
+  .hero-reassurance svg{flex-shrink:0}
+  .hero-media{position:relative}
+  .hero-media img{
+    border-radius:var(--radius-lg);box-shadow:0 30px 70px -20px rgba(0,0,0,.55);
+    width:100%;aspect-ratio:4/5;object-fit:cover;
+  }
+  .hero-stat-card{
+    position:absolute;left:-28px;bottom:-24px;background:#fff;color:var(--navy-950);
+    padding:20px 24px;border-radius:var(--radius-md);box-shadow:var(--shadow-soft);
+    min-width:200px;
+  }
+  .hero-stat-card .num{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.7rem;color:var(--blue-600)}
+  .hero-stat-card .label{font-size:.82rem;color:var(--gray-600);margin-top:2px}
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-media{order:-1}
+    .hero-stat-card{left:16px}
+  }
+
+  /* Why section */
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:52px}
+  .why-card{
+    background:var(--gray-50);border-radius:var(--radius-md);padding:32px 26px;
+    border:1px solid var(--gray-100);
+  }
+  .why-icon{
+    width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--blue-600),var(--green-500));margin-bottom:20px;
+  }
+  .why-card h3{font-size:1.1rem;margin-bottom:10px}
+  .why-card p{color:var(--gray-600);font-size:.96rem}
+  @media(max-width:960px){.why-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.why-grid{grid-template-columns:1fr}}
+
+  /* Image + text section */
+  .split-section{background:var(--gray-50)}
+  .split-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .split-grid img{border-radius:var(--radius-lg);box-shadow:var(--shadow-card);width:100%;aspect-ratio:5/4;object-fit:cover}
+  .split-text h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:20px}
+  .split-text p{color:var(--gray-600);font-size:1.05rem;margin-bottom:28px}
+  @media(max-width:900px){.split-grid{grid-template-columns:1fr}.split-grid img{order:-1}}
+
+  /* Eligibility */
+  .elig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+  .elig-card{
+    display:flex;gap:16px;align-items:flex-start;padding:24px;border-radius:var(--radius-md);
+    border:1px solid var(--gray-100);background:#fff;box-shadow:var(--shadow-card);
+  }
+  .elig-check{
+    width:36px;height:36px;border-radius:10px;background:rgba(31,169,113,.12);color:var(--green-600);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .elig-card h4{font-size:1rem;margin-bottom:6px}
+  .elig-card p{font-size:.9rem;color:var(--gray-600)}
+  .elig-note{
+    margin-top:40px;background:#fff7ed;border:1px solid #fde3b8;color:#8a5a12;
+    padding:18px 22px;border-radius:var(--radius-md);font-size:.94rem;
+  }
+  @media(max-width:900px){.elig-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.elig-grid{grid-template-columns:1fr}}
+
+  /* Process timeline */
+  .process-section{background:var(--navy-950);color:#fff}
+  .process-section .eyebrow{color:#6fa3ff}
+  .process-section h2{color:#fff}
+  .process-section .lead{color:#a9b9d6}
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px;position:relative}
+  .timeline::before{
+    content:"";position:absolute;top:26px;left:8%;right:8%;height:2px;
+    background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.25),rgba(255,255,255,.05));
+    z-index:0;
+  }
+  .step{position:relative;z-index:1;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+  .step.in-view{opacity:1;transform:translateY(0)}
+  .step-num{
+    width:52px;height:52px;border-radius:50%;background:var(--navy-800);border:1.5px solid rgba(255,255,255,.18);
+    display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;
+    color:#fff;margin-bottom:22px;
+  }
+  .step h4{color:#fff;font-size:1.05rem;margin-bottom:8px}
+  .step p{color:#93a5c4;font-size:.9rem}
+  @media(max-width:900px){.timeline{grid-template-columns:1fr 1fr}.timeline::before{display:none}}
+  @media(max-width:600px){.timeline{grid-template-columns:1fr}}
+
+  /* Reassurance strip */
+  .strip{background:var(--gray-50);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100)}
+  .strip .wrap{padding:36px 24px;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:center}
+  .strip-item{display:flex;align-items:center;gap:10px;font-size:.92rem;color:var(--gray-700);font-weight:500}
+  .strip-item svg{color:var(--green-600);flex-shrink:0}
+
+  /* Form section */
+  .form-section{background:linear-gradient(180deg,var(--gray-50),#fff)}
+  .form-card{
+    background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);
+    border:1px solid var(--gray-100);padding:48px;max-width:880px;margin:52px auto 0;
+  }
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 24px}
+  .field{display:flex;flex-direction:column;gap:8px}
+  .field.full{grid-column:1/-1}
+  .field label{font-size:.86rem;font-weight:600;color:var(--navy-800)}
+  .field input, .field select{
+    border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);padding:13px 15px;
+    font-size:.96rem;font-family:'Inter',sans-serif;color:var(--navy-900);background:#fff;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .field input:focus, .field select:focus{
+    outline:none;border-color:var(--blue-600);box-shadow:0 0 0 3px rgba(47,111,235,.15);
+  }
+  .consent{display:flex;gap:12px;align-items:flex-start;margin-top:28px}
+  .consent input{margin-top:4px;width:18px;height:18px;accent-color:var(--blue-600);flex-shrink:0}
+  .consent label{font-size:.88rem;color:var(--gray-600)}
+  .form-note{font-size:.8rem;color:var(--gray-500);margin-top:14px}
+  .form-actions{margin-top:32px}
+  .form-actions .btn{width:100%}
+  .form-msg{margin-top:20px;padding:16px 18px;border-radius:var(--radius-sm);font-size:.92rem;display:none}
+  .form-msg.success{display:block;background:#ecfdf3;color:var(--green-600);border:1px solid #b7ecd2}
+  .form-msg.error{display:block;background:#fef2f2;color:#b42318;border:1px solid #fecdca}
+  @media(max-width:700px){.form-grid{grid-template-columns:1fr}.form-card{padding:30px 22px}}
+
+  /* FAQ */
+  .faq-list{max-width:800px;margin:48px auto 0}
+  .faq-item{border-bottom:1px solid var(--gray-100)}
+  .faq-q{
+    width:100%;background:none;border:none;text-align:left;padding:22px 4px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;cursor:pointer;
+    font-family:'Manrope',sans-serif;font-weight:700;font-size:1.02rem;color:var(--navy-950);
+  }
+  .faq-q .plus{flex-shrink:0;transition:transform .25s ease;color:var(--blue-600)}
+  .faq-item.open .plus{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq-a p{padding:0 4px 22px;color:var(--gray-600);font-size:.95rem;max-width:680px}
+
+  /* Final CTA */
+  .final-cta{
+    background:radial-gradient(circle at 80% 20%,#17835a 0%,var(--navy-950) 60%);
+    color:#fff;text-align:center;
+  }
+  .final-cta h2{color:#fff;font-size:clamp(1.9rem,3.6vw,2.7rem);max-width:720px;margin:0 auto}
+  .final-cta p{color:#c7d4ea;max-width:560px;margin:20px auto 0;font-size:1.08rem}
+  .final-cta .btn{margin-top:34px}
+
+  /* Footer */
+  footer{background:var(--navy-950);color:#93a5c4;padding:56px 0 28px;font-size:.9rem}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .footer-grid h5{color:#fff;font-family:'Manrope',sans-serif;font-size:.9rem;margin-bottom:16px}
+  .footer-grid ul{list-style:none}
+  .footer-grid li{margin-bottom:10px}
+  .footer-grid a:hover{color:#fff}
+  .footer-brand{color:#fff;font-family:'Manrope',sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:12px}
+  .footer-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.82rem}
+  @media(max-width:700px){.footer-grid{grid-template-columns:1fr}}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in-view{opacity:1;transform:translateY(0)}
+  @media(prefers-reduced-motion:reduce){.reveal,.step{opacity:1!important;transform:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <span class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 8v13h6v-7h4v7h6V8l-8-6z" fill="#fff"/></svg>
+      </span>
+      Énergie Habitat
+    </div>
+    <nav class="nav-links">
+      <a href="#pourquoi">Pourquoi une PAC</a>
+      <a href="#eligibilite">Éligibilité</a>
+      <a href="#faq">Questions fréquentes</a>
+    </nav>
+    <a href="#formulaire" class="btn btn-primary">Tester mon éligibilité</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-badge"><span class="dot"></span> Étude d'éligibilité gratuite</div>
+      <h1>Pompe à chaleur à 1 €</h1>
+      <p class="lead">Réduisez vos dépenses énergétiques et améliorez le confort de votre logement grâce à une solution de chauffage plus performante.</p>
+      <p class="hero-conditions">Offre soumise à conditions d'éligibilité (ressources, logement, zone géographique). Une étude personnalisée est nécessaire pour confirmer votre situation.</p>
+      <div class="hero-actions">
+        <a href="#formulaire" class="btn btn-primary">Tester mon éligibilité</a>
+        <a href="#pourquoi" class="btn btn-outline">Comment ça marche</a>
+      </div>
+      <div class="hero-reassurance">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z" stroke="#1fa971" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="#1fa971" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Étude d'éligibilité gratuite et sans engagement
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="https://images.unsplash.com/photo-1776860150305-108ed577d7d4?auto=format&fit=crop&w=1000&q=80" alt="Installation d'une pompe à chaleur extérieure sur une maison individuelle" loading="lazy">
+      <div class="hero-stat-card">
+        <div class="num">1 €</div>
+        <div class="label">Sous conditions d'éligibilité</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pourquoi">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center">Les avantages</span>
+    <h2 class="center" style="max-width:600px;font-size:clamp(1.8rem,3vw,2.3rem)">Pourquoi choisir une pompe à chaleur ?</h2>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Économies d'énergie</h3>
+        <p>Une solution conçue pour optimiser votre consommation énergétique.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.8"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Confort</h3>
+        <p>Profitez d'une température agréable et stable dans votre logement.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#fff" stroke-width="1.8"/><path d="M7 10h4M7 14h7" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Technologie moderne</h3>
+        <p>Une solution de chauffage moderne adaptée aux besoins des logements.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-3-8-6.5-8-11a5 5 0 019-3 5 5 0 019 3c0 4.5-4 8-8 11z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Accompagnement</h3>
+        <p>Un accompagnement pour étudier votre situation et votre éligibilité.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="split-section">
+  <div class="wrap split-grid">
+    <img src="https://images.unsplash.com/photo-1757361653037-dbf0d0a820ae?auto=format&fit=crop&w=1000&q=80" alt="Maison individuelle moderne pouvant accueillir une pompe à chaleur" loading="lazy">
+    <div class="split-text">
+      <span class="eyebrow">Le principe</span>
+      <h2>Une solution pensée pour votre confort</h2>
+      <p>La pompe à chaleur utilise les calories présentes dans l'air extérieur pour contribuer au chauffage de votre logement. Selon votre situation, elle peut permettre d'améliorer les performances énergétiques de votre habitation.</p>
+      <a href="#formulaire" class="btn btn-primary">Étudier mon éligibilité</a>
+    </div>
+  </div>
+</section>
+
+<section id="eligibilite">
+  <div class="wrap">
+    <span class="eyebrow">Éligibilité</span>
+    <h2 style="max-width:600px;font-size:clamp(1.8rem,3vw,2.3rem)">Qui peut bénéficier de l'offre ?</h2>
+    <p class="lead">L'éligibilité dépend de plusieurs critères propres à chaque foyer.</p>
+    <div class="elig-grid">
+      <div class="elig-card reveal">
+        <div class="elig-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Propriétaire occupant</h4><p>Vous occupez le logement que vous possédez.</p></div>
+      </div>
+      <div class="elig-card reveal">
+        <div class="elig-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Maison individuelle</h4><p>L'offre s'adresse en priorité aux maisons individuelles.</p></div>
+      </div>
+      <div class="elig-card reveal">
+        <div class="elig-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Situation géographique</h4><p>La localisation de votre logement peut être prise en compte.</p></div>
+      </div>
+      <div class="elig-card reveal">
+        <div class="elig-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Revenus du foyer</h4><p>Le revenu fiscal de référence fait partie des critères étudiés.</p></div>
+      </div>
+      <div class="elig-card reveal">
+        <div class="elig-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Type de chauffage actuel</h4><p>Votre mode de chauffage actuel est pris en compte dans l'étude.</p></div>
+      </div>
+      <div class="elig-card reveal">
+        <div class="elig-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Caractéristiques du logement</h4><p>Surface, ancienneté et isolation peuvent influencer l'étude.</p></div>
+      </div>
+    </div>
+    <p class="elig-note">L'éligibilité dépend de plusieurs critères. Le remplissage du formulaire ne garantit pas l'obtention d'une pompe à chaleur à 1 €.</p>
+  </div>
+</section>
+
+<section class="process-section">
+  <div class="wrap">
+    <span class="eyebrow">Le déroulement</span>
+    <h2 style="max-width:600px;font-size:clamp(1.8rem,3vw,2.3rem)">Comment se déroule votre demande ?</h2>
+    <div class="timeline">
+      <div class="step"><div class="step-num">01</div><h4>Remplissez le formulaire</h4><p>Renseignez vos informations en quelques minutes.</p></div>
+      <div class="step"><div class="step-num">02</div><h4>Étude de votre situation</h4><p>Notre équipe analyse les éléments transmis.</p></div>
+      <div class="step"><div class="step-num">03</div><h4>Vérification de votre éligibilité</h4><p>Nous vérifions les critères applicables à votre logement.</p></div>
+      <div class="step"><div class="step-num">04</div><h4>Accompagnement dans votre projet</h4><p>Nous vous accompagnons pour la suite de votre démarche.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Étude d'éligibilité</div>
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Demande sans engagement</div>
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Accompagnement personnalisé</div>
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Formulaire sécurisé</div>
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Réponse rapide</div>
+  </div>
+</div>
+
+<section class="form-section" id="formulaire">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center">Étude d'éligibilité</span>
+    <h2 class="center" style="max-width:600px;font-size:clamp(1.8rem,3vw,2.3rem)">Vérifiez votre éligibilité gratuitement</h2>
+    <p class="lead center">Quelques informations suffisent pour effectuer votre première étude.</p>
+
+    <div class="form-card">
+      <form id="pacForm">
+        <div class="form-grid">
+          <div class="field"><label for="prenom">Prénom</label><input type="text" id="prenom" name="Prenom" required></div>
+          <div class="field"><label for="nom">Nom</label><input type="text" id="nom" name="Nom" required></div>
+          <div class="field"><label for="telephone">Téléphone</label><input type="tel" id="telephone" name="Telephone" required></div>
+          <div class="field"><label for="email">Email</label><input type="email" id="email" name="Email" required></div>
+          <div class="field full"><label for="adresse">Adresse</label><input type="text" id="adresse" name="Adresse" required></div>
+          <div class="field"><label for="cp">Code postal</label><input type="text" id="cp" name="CodePostal" required></div>
+          <div class="field"><label for="ville">Ville</label><input type="text" id="ville" name="Ville" required></div>
+          <div class="field">
+            <label for="typeLogement">Type de logement</label>
+            <select id="typeLogement" name="TypeLogement" required>
+              <option value="">Sélectionnez</option>
+              <option value="Maison individuelle">Maison individuelle</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="statut">Vous êtes</label>
+            <select id="statut" name="Statut" required>
+              <option value="">Sélectionnez</option>
+              <option value="Propriétaire">Propriétaire</option>
+              <option value="Locataire">Locataire</option>
+            </select>
+          </div>
+          <div class="field"><label for="surface">Surface du logement (m²)</label><input type="number" id="surface" name="Surface" min="1" required></div>
+          <div class="field">
+            <label for="chauffage">Mode de chauffage actuel</label>
+            <select id="chauffage" name="ChauffageActuel" required>
+              <option value="">Sélectionnez</option>
+              <option value="Électrique">Électrique</option>
+              <option value="Fioul">Fioul</option>
+              <option value="Gaz">Gaz</option>
+              <option value="Bois">Bois</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div class="field"><label for="revenu">Revenu fiscal de référence (€)</label><input type="number" id="revenu" name="RevenuFiscal" min="0" required></div>
+          <div class="field"><label for="foyer">Nombre de personnes dans le foyer</label><input type="number" id="foyer" name="NombrePersonnes" min="1" required></div>
+        </div>
+
+        <div class="consent">
+          <input type="checkbox" id="consentement" name="Consentement" required>
+          <label for="consentement">J'accepte d'être contacté concernant ma demande d'étude d'éligibilité.</label>
+        </div>
+        <p class="form-note">Vos informations sont utilisées uniquement pour traiter votre demande.</p>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">Vérifier mon éligibilité</button>
+        </div>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow center" style="display:block;text-align:center">Questions fréquentes</span>
+    <h2 class="center" style="max-width:600px;font-size:clamp(1.8rem,3vw,2.3rem)">Vous avez des questions ?</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">Qui peut bénéficier d'une PAC à 1 € ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>L'offre s'adresse principalement aux propriétaires occupants de maisons individuelles, sous réserve de remplir certains critères d'éligibilité liés aux ressources et au logement.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Comment fonctionne l'étude d'éligibilité ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Après réception de votre formulaire, notre équipe analyse votre situation (logement, chauffage actuel, revenus) afin de déterminer si votre dossier peut être éligible.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Combien coûte la demande ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>L'étude d'éligibilité est gratuite et ne vous engage à rien.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quels documents peuvent être nécessaires ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Selon votre dossier, un avis d'imposition ou un justificatif de propriété pourront vous être demandés lors de l'accompagnement.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Est-ce que remplir le formulaire m'engage ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Non, la demande d'étude est entièrement gratuite et sans engagement de votre part.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quel type de logement est concerné ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>L'offre concerne en priorité les maisons individuelles occupées par leur propriétaire.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Comment serai-je contacté ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Un conseiller pourra vous contacter par téléphone ou par email, aux coordonnées renseignées dans le formulaire.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Et si votre logement pouvait être plus confortable et plus performant ?</h2>
+    <p>Faites une première demande d'étude et découvrez si votre situation peut être éligible.</p>
+    <a href="#formulaire" class="btn btn-light">Tester mon éligibilité</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Énergie Habitat</div>
+        <p style="max-width:340px">Étude d'éligibilité à des solutions de chauffage plus performantes pour les propriétaires de maison individuelle.</p>
+      </div>
+      <div>
+        <h5>Informations</h5>
+        <ul>
+          <li><a href="#">Mentions légales</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:contact@energie-habitat.fr">contact@energie-habitat.fr</a></li>
+          <li><a href="#formulaire">Demander une étude</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Énergie Habitat. Tous droits réservés.</span>
+      <span>Offre soumise à conditions d'éligibilité.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- URL Google Apps Script (à remplacer) ---------- */
+  const APPS_SCRIPT_URL = "COLLER_ICI_URL_APPS_SCRIPT";
+
+  /* ---------- Reveal on scroll ---------- */
+  const revealEls = document.querySelectorAll('.reveal, .step');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.15});
+    revealEls.forEach(el=>io.observe(el));
+  } else {
+    revealEls.forEach(el=>el.classList.add('in-view'));
+  }
+
+  /* ---------- FAQ accordion ---------- */
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(open=>{
+        if(open !== item){
+          open.classList.remove('open');
+          open.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if(isOpen){
+        item.classList.remove('open');
+        a.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* ---------- Form submission ---------- */
+  const form = document.getElementById('pacForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formMsg = document.getElementById('formMsg');
+  const defaultBtnText = submitBtn.textContent;
+  let isSubmitting = false;
+
+  function showMessage(type, text){
+    formMsg.textContent = text;
+    formMsg.className = 'form-msg ' + type;
+  }
+
+  function setLoading(loading){
+    isSubmitting = loading;
+    submitBtn.disabled = loading;
+    submitBtn.textContent = loading ? 'Envoi en cours…' : defaultBtnText;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(isSubmitting) return;
+
+    if(APPS_SCRIPT_URL.indexOf('COLLER_ICI') !== -1){
+      showMessage('error', "Le formulaire n'est pas encore connecté à Google Sheets. Renseignez l'URL Apps Script dans le code.");
+      return;
+    }
+
+    const data = new FormData(form);
+    data.append('Source', 'Landing page PAC 1€');
+    data.append('Page', window.location.href);
+    data.append('Consentement', document.getElementById('consentement').checked ? 'Oui' : 'Non');
+
+    setLoading(true);
+    formMsg.className = 'form-msg';
+
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: data
+    })
+    .then(function(response){ return response.json(); })
+    .then(function(result){
+      setLoading(false);
+      if(result && result.status === 'success'){
+        showMessage('success', 'Merci ! Votre demande a bien été enregistrée. Nous allons vous contacter prochainement.');
+        form.reset();
+      } else {
+        showMessage('error', 'Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.');
+      }
+    })
+    .catch(function(){
+      setLoading(false);
+      showMessage('error', 'Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
