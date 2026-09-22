@@ -544,8 +544,8 @@
 (function(){
   "use strict";
 
-  /* ---------- URL Google Apps Script (à remplacer) ---------- */
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7072o4uOsuBy6p-NuZXReJx6-BsXOlLvsvoC8rVrmLx1TbDE8YA7f3mXYl44lG2Wy/exec";
+  /* ---------- URL Google Apps Script ---------- */
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyKMV5r-sfaSYqEUYRjT78uErSrMA1H9idBk-BurPWBPx00evPF4xYm9pKK2ymyp-SJ/exec";
 
   /* ---------- Reveal on scroll ---------- */
   const revealEls = document.querySelectorAll('.reveal, .step');
@@ -569,18 +569,18 @@
     const a = item.querySelector('.faq-a');
     q.addEventListener('click', ()=>{
       const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(open=>{
-        if(open !== item){
-          open.classList.remove('open');
-          open.querySelector('.faq-a').style.maxHeight = null;
+      document.querySelectorAll('.faq-item.open').forEach(o=>{
+        if(o !== item){
+          o.classList.remove('open');
+          o.querySelector('.faq-a').style.maxHeight = null;
         }
       });
-      if(isOpen){
+      if(!isOpen){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + "px";
+      } else {
         item.classList.remove('open');
         a.style.maxHeight = null;
-      } else {
-        item.classList.add('open');
-        a.style.maxHeight = a.scrollHeight + 'px';
       }
     });
   });
@@ -589,56 +589,51 @@
   const form = document.getElementById('pacForm');
   const submitBtn = document.getElementById('submitBtn');
   const formMsg = document.getElementById('formMsg');
-  const defaultBtnText = submitBtn.textContent;
-  let isSubmitting = false;
 
-  function showMessage(type, text){
-    formMsg.textContent = text;
-    formMsg.className = 'form-msg ' + type;
-  }
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      formMsg.className = 'form-msg';
+      formMsg.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours...';
 
-  function setLoading(loading){
-    isSubmitting = loading;
-    submitBtn.disabled = loading;
-    submitBtn.textContent = loading ? 'Envoi en cours…' : defaultBtnText;
-  }
+      const formData = new FormData(form);
+      const data = {};
+      
+      formData.forEach((value, key) => { 
+        data[key] = value; 
+      });
 
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    if(isSubmitting) return;
+      // Gestion précise de la case à cocher
+      const consentCheckbox = document.getElementById('consentement');
+      data['Consentement'] = consentCheckbox ? consentCheckbox.checked : false;
 
-    if(APPS_SCRIPT_URL.indexOf('COLLER_ICI') !== -1){
-      showMessage('error', "Le formulaire n'est pas encore connecté à Google Sheets. Renseignez l'URL Apps Script dans le code.");
-      return;
-    }
-
-    const data = new FormData(form);
-    data.append('Source', 'Landing page PAC 1€');
-    data.append('Page', window.location.href);
-    data.append('Consentement', document.getElementById('consentement').checked ? 'Oui' : 'Non');
-
-    setLoading(true);
-    formMsg.className = 'form-msg';
-
-    fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      body: data
-    })
-    .then(function(response){ return response.json(); })
-    .then(function(result){
-      setLoading(false);
-      if(result && result.status === 'success'){
-        showMessage('success', 'Merci ! Votre demande a bien été enregistrée. Nous allons vous contacter prochainement.');
+      // Utilisation de text/plain pour contourner les restrictions CORS du navigateur
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        formMsg.textContent = "Votre demande d'étude a bien été envoyée ! Un conseiller vous contactera rapidement.";
+        formMsg.className = 'form-msg success';
+        formMsg.style.display = 'block';
         form.reset();
-      } else {
-        showMessage('error', 'Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.');
-      }
-    })
-    .catch(function(){
-      setLoading(false);
-      showMessage('error', 'Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.');
+      })
+      .catch(error => {
+        console.error('Erreur:', error);
+        formMsg.textContent = "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
+        formMsg.className = 'form-msg error';
+        formMsg.style.display = 'block';
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Vérifier mon éligibilité';
+      });
     });
-  });
+  }
 })();
 </script>
 
