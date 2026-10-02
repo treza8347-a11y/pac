@@ -529,17 +529,17 @@
 (function(){
   "use strict";
 
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxT_JxL1prCdDsZlk674ku_iabII8bGTBUwAPaqg-x9y9XC3czL2XkOToBp-vgkYtxj/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHB74lh7whIUmgdFC6-m7Hm-c-IYPE7DUJzwzvNKzq6dc_Z9IMhCdKlYtok97NOmpH/exec";
 
   let clientIP = "";
 
-  // 1. IP
+  // 1. Détection IP du client
   fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(data => { if(data && data.ip) clientIP = data.ip; })
     .catch(() => {});
 
-  // 2. Animations
+  // 2. Animations au scroll
   const revealEls = document.querySelectorAll('.reveal, .step');
   if('IntersectionObserver' in window){
     const io = new IntersectionObserver((entries)=>{
@@ -552,7 +552,7 @@
     revealEls.forEach(el => el.classList.add('in-view'));
   }
 
-  // 3. FAQ
+  // 3. FAQ Accordion
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
@@ -571,7 +571,7 @@
     });
   });
 
-  // 4. Soumission
+  // 4. Traitement et soumission du formulaire
   const form = document.getElementById('pacForm');
   const submitBtn = document.getElementById('submitBtn');
   const formMsg = document.getElementById('formMsg');
@@ -586,7 +586,12 @@
 
       const formData = new FormData(form);
       const searchParams = new URLSearchParams();
-      
+
+      // Transmission du Jeton Cloudflare Turnstile
+      const turnstileToken = formData.get('cf-turnstile-response') || '';
+      searchParams.append('cf-turnstile-response', turnstileToken);
+
+      // Transmission des données
       searchParams.append('AdresseIP', clientIP);
       searchParams.append('Prenom', formData.get('Prenom') || '');
       searchParams.append('Nom', formData.get('Nom') || '');
@@ -604,14 +609,15 @@
       searchParams.append('Consentement', formData.get('Consentement') ? 'Oui' : 'Non');
       searchParams.append('website', formData.get('website') || '');
 
-      // Déblocage de sécurité après 3 secondes au cas où le réseau freeze
-      const timer = setTimeout(function(){
+      // Timer de secours (2.5 secondes max pour éviter les blocages UI)
+      const safetyTimer = setTimeout(function(){
         submitBtn.disabled = false;
         submitBtn.innerText = "Vérifier mon éligibilité";
-        formMsg.innerText = "Merci ! Votre demande a été transmise.";
+        formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
         formMsg.className = "form-msg success";
         formMsg.style.display = "block";
         form.reset();
+        if(window.turnstile) turnstile.reset();
       }, 2500);
 
       fetch(APPS_SCRIPT_URL, {
@@ -621,7 +627,7 @@
         body: searchParams.toString()
       })
       .then(() => {
-        clearTimeout(timer);
+        clearTimeout(safetyTimer);
         formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
         formMsg.className = "form-msg success";
         formMsg.style.display = "block";
@@ -629,9 +635,9 @@
         if(window.turnstile) turnstile.reset();
       })
       .catch(err => {
-        clearTimeout(timer);
+        clearTimeout(safetyTimer);
         console.error(err);
-        formMsg.innerText = "Erreur lors de l'envoi. Veuillez réessayer.";
+        formMsg.innerText = "Une erreur est survenue lors de l'envoi.";
         formMsg.className = "form-msg error";
         formMsg.style.display = "block";
       })
