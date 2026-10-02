@@ -741,6 +741,27 @@ if (form) {
 }
 })();
 </script>
+<script>
+window.addEventListener('load', function () {
 
+  const formulaire = document.getElementById('formulaire');
+  const header = document.querySelector('header');
+
+  if (!formulaire) return;
+
+  const hauteurHeader = header ? header.offsetHeight : 0;
+
+  const position =
+    formulaire.getBoundingClientRect().top +
+    window.pageYOffset -
+    hauteurHeader;
+
+  window.scrollTo({
+    top: position,
+    behavior: 'auto'
+  });
+
+});
+</script>
 </body>
 </html>
