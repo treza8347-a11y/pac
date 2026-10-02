@@ -627,24 +627,28 @@ if (timeSpent < 3000) { // moins de 3 secondes = bot
   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   body: searchParams.toString()
 })
-      .then(() => {
-        // Enregistrement du Lead Meta Pixel
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead');
+           .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          if (typeof fbq === 'function') {
+            fbq('track', 'Lead');
+          }
+          formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
+          formMsg.className = "form-msg success";
+          formMsg.style.display = "block";
+          form.reset();
+          if(window.turnstile) turnstile.reset();
+        } else {
+          formMsg.innerText = data.message || "Une erreur est survenue. Veuillez réessayer.";
+          formMsg.className = "form-msg error";
+          formMsg.style.display = "block";
         }
-
-        formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
-        formMsg.className = "form-msg success";
-        formMsg.style.display = "block";
-        form.reset();
-        if(window.turnstile) turnstile.reset();
       })
       .catch(err => {
         console.error(err);
-        formMsg.innerText = "Merci ! Votre demande a bien été soumise.";
-        formMsg.className = "form-msg success";
+        formMsg.innerText = "Une erreur réseau est survenue. Veuillez réessayer.";
+        formMsg.className = "form-msg error";
         formMsg.style.display = "block";
-        form.reset();
       })
       .finally(() => {
         submitBtn.disabled = false;
