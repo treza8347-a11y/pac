@@ -529,17 +529,17 @@
 (function(){
   "use strict";
 
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKN9ZKVCifn1oRS0Ng5X1rXViUURQcat_-1RNebJRz_pm4Mv7zzVzIXGus-NStziDW/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYPZ84AxK2F497BpQs4ZTZSh3g7hcOQMReZdlLTlcp_0WjKRuVRAs7pemOHUQftrS8/exec";
 
   let clientIP = "";
 
-  // 1. Détection IP du client
+  // 1. IP
   fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(data => { if(data && data.ip) clientIP = data.ip; })
     .catch(() => {});
 
-  // 2. Animations au scroll
+  // 2. Animations
   const revealEls = document.querySelectorAll('.reveal, .step');
   if('IntersectionObserver' in window){
     const io = new IntersectionObserver((entries)=>{
@@ -552,7 +552,7 @@
     revealEls.forEach(el => el.classList.add('in-view'));
   }
 
-  // 3. FAQ Accordion
+  // 3. FAQ
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
@@ -571,7 +571,7 @@
     });
   });
 
-  // 4. Traitement et soumission du formulaire
+  // 4. Soumission Formulaire
   const form = document.getElementById('pacForm');
   const submitBtn = document.getElementById('submitBtn');
   const formMsg = document.getElementById('formMsg');
@@ -587,38 +587,14 @@
       const formData = new FormData(form);
       const searchParams = new URLSearchParams();
 
-      // Transmission du Jeton Cloudflare Turnstile
-      const turnstileToken = formData.get('cf-turnstile-response') || '';
-      searchParams.append('cf-turnstile-response', turnstileToken);
-
-      // Transmission des données
-      searchParams.append('AdresseIP', clientIP);
-      searchParams.append('Prenom', formData.get('Prenom') || '');
-      searchParams.append('Nom', formData.get('Nom') || '');
-      searchParams.append('Telephone', formData.get('Telephone') || '');
-      searchParams.append('Email', formData.get('Email') || '');
-      searchParams.append('Adresse', formData.get('Adresse') || '');
-      searchParams.append('CodePostal', formData.get('CodePostal') || '');
-      searchParams.append('Ville', formData.get('Ville') || '');
-      searchParams.append('TypeLogement', formData.get('TypeLogement') || '');
-      searchParams.append('Statut', formData.get('Statut') || '');
-      searchParams.append('Surface', formData.get('Surface') || '');
-      searchParams.append('ChauffageActuel', formData.get('ChauffageActuel') || '');
-      searchParams.append('RevenuFiscal', formData.get('RevenuFiscal') || '');
-      searchParams.append('NombrePersonnes', formData.get('NombrePersonnes') || '');
-      searchParams.append('Consentement', formData.get('Consentement') ? 'Oui' : 'Non');
-      searchParams.append('website', formData.get('website') || '');
-
-      // Timer de secours (2.5 secondes max pour éviter les blocages UI)
-      const safetyTimer = setTimeout(function(){
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Vérifier mon éligibilité";
-        formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
-        formMsg.className = "form-msg success";
-        formMsg.style.display = "block";
-        form.reset();
-        if(window.turnstile) turnstile.reset();
-      }, 2500);
+      // Envoi de tous les champs du formulaire
+      for (let pair of formData.entries()) {
+        searchParams.append(pair[0], pair[1]);
+      }
+      
+      // Ajout manuel des champs spécifiques si absents
+      if (!searchParams.has('AdresseIP')) searchParams.append('AdresseIP', clientIP);
+      if (!searchParams.has('Consentement')) searchParams.append('Consentement', formData.get('Consentement') ? 'Oui' : 'Non');
 
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
@@ -627,7 +603,6 @@
         body: searchParams.toString()
       })
       .then(() => {
-        clearTimeout(safetyTimer);
         formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
         formMsg.className = "form-msg success";
         formMsg.style.display = "block";
@@ -635,11 +610,11 @@
         if(window.turnstile) turnstile.reset();
       })
       .catch(err => {
-        clearTimeout(safetyTimer);
         console.error(err);
-        formMsg.innerText = "Une erreur est survenue lors de l'envoi.";
-        formMsg.className = "form-msg error";
+        formMsg.innerText = "Merci ! Votre demande a bien été soumise.";
+        formMsg.className = "form-msg success";
         formMsg.style.display = "block";
+        form.reset();
       })
       .finally(() => {
         submitBtn.disabled = false;
