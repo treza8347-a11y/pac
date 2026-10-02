@@ -193,8 +193,8 @@ export default async function handler(req, res) {
       Surface: String(body.Surface).trim(),
       ChauffageActuel: String(body.ChauffageActuel).trim(),
       RevenuFiscal: String(body.RevenuFiscal).trim(),
-      NombrePersonnes: String(body.NombrePersonnes).trim(),
-      AdresseIP: ip,
+     NombrePersonnes: String(body.NombrePersonnes).trim(),
+      AdresseIP: ip || "IP_NON_DETECTEE",
       Consentement: true,
 
       _secret: appsScriptSecret
