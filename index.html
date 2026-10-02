@@ -646,7 +646,7 @@ if (timeSpent < 3000) { // moins de 3 secondes = bot
       })
       .catch(err => {
         console.error(err);
-        formMsg.innerText = "Une erreur réseau est survenue. Veuillez réessayer.";
+        
         formMsg.className = "form-msg error";
         formMsg.style.display = "block";
       })
