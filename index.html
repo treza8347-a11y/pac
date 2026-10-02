@@ -765,5 +765,15 @@ window.addEventListener('load', function () {
 
 });
 </script>
+  <script>
+fetch("https://api.ipify.org?format=json")
+  .then(response => response.json())
+  .then(data => {
+    console.log("Adresse IP du visiteur :", data.ip);
+  })
+  .catch(error => {
+    console.error("Erreur récupération IP :", error);
+  });
+</script>
 </body>
 </html>
