@@ -630,55 +630,115 @@ async function checkIpAndSubmit(event) {
     submitToGoogleSheet();
   }
 }
-  /* ---------- Form submission ---------- */
-  const form = document.getElementById('pacForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const formMsg = document.getElementById('formMsg');
+/* ---------- Form submission ---------- */
 
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      formMsg.className = 'form-msg';
-      formMsg.style.display = 'none';
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Envoi en cours...';
+const form = document.getElementById('pacForm');
+const submitBtn = document.getElementById('submitBtn');
+const formMsg = document.getElementById('formMsg');
+
+if (form) {
+
+  form.addEventListener('submit', async function (e) {
+
+    e.preventDefault();
+
+    formMsg.className = 'form-msg';
+    formMsg.style.display = 'none';
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi en cours...';
+
+    try {
 
       const formData = new FormData(form);
       const data = {};
-      
-      formData.forEach((value, key) => { 
-        data[key] = value; 
+
+      formData.forEach((value, key) => {
+        data[key] = value;
       });
 
-      // Gestion précise de la case à cocher
-      const consentCheckbox = document.getElementById('consentement');
-      data['Consentement'] = consentCheckbox ? consentCheckbox.checked : false;
+      // Gestion de la case à cocher
+      const consentCheckbox =
+        document.getElementById('consentement');
 
-      // Utilisation de text/plain pour contourner les restrictions CORS du navigateur
-      fetch(APPS_SCRIPT_URL, {
+      data['Consentement'] =
+        consentCheckbox
+          ? consentCheckbox.checked
+          : false;
+
+      // Envoi vers notre API Vercel
+      const response = await fetch('/api/lead', {
+
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
         body: JSON.stringify(data)
-      })
-      .then(() => {
-        formMsg.textContent = "Votre demande d'étude a bien été envoyée ! Un conseiller vous contactera rapidement.";
-        formMsg.className = 'form-msg success';
-        formMsg.style.display = 'block';
-        form.reset();
-      })
-      .catch(error => {
-        console.error('Erreur:', error);
-        formMsg.textContent = "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
-        formMsg.className = 'form-msg error';
-        formMsg.style.display = 'block';
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Vérifier mon éligibilité';
+
       });
-    });
-  }
+
+      const result = await response.json();
+
+      // Vérification de la réponse
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message ||
+          "Une erreur est survenue."
+        );
+      }
+
+      // Succès
+      formMsg.textContent =
+        "Votre demande d'étude a bien été envoyée ! Un conseiller vous contactera rapidement.";
+
+      formMsg.className =
+        'form-msg success';
+
+      formMsg.style.display =
+        'block';
+
+      form.reset();
+
+      // Réinitialisation de Turnstile
+      if (window.turnstile) {
+        turnstile.reset();
+      }
+
+    } catch (error) {
+
+      console.error(
+        'Erreur:',
+        error
+      );
+
+      formMsg.textContent =
+        error.message ||
+        "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
+
+      formMsg.className =
+        'form-msg error';
+
+      formMsg.style.display =
+        'block';
+
+      if (window.turnstile) {
+        turnstile.reset();
+      }
+
+    } finally {
+
+      submitBtn.disabled = false;
+
+      submitBtn.textContent =
+        'Vérifier mon éligibilité';
+
+    }
+
+  });
+
+}
 })();
 </script>
 
