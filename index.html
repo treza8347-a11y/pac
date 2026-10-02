@@ -311,7 +311,8 @@
           <label for="website">Ne pas remplir ce champ</label>
           <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
         </div>
-
+<!-- Time-trap : enregistre l'heure de chargement -->
+<input type="hidden" id="formLoadTime" name="formLoadTime" value="">
         <div class="form-grid">
           <div class="field"><label for="prenom">Prénom</label><input type="text" id="prenom" name="Prenom" required></div>
           <div class="field"><label for="nom">Nom</label><input type="text" id="nom" name="Nom" required></div>
@@ -544,8 +545,9 @@
 (function(){
   "use strict";
 
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxfDgDepszJhQE6oGjx0ev0kfzGdgBXFMeeeqROz016oBMcbQOYOovLXBHp57erCTuL/exec";
-
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiK6Q_fmsnA49uGUuMzaFnua7HK2QKWMHTnfPoE41HZtfE_XCO15Hs9S6DjeJV-e95/exec";
+// Time-trap : heure de chargement du formulaire
+document.getElementById('formLoadTime').value = Date.now();
   let clientIP = "";
 
   // 1. IP
@@ -594,7 +596,16 @@
   if(form){
     form.addEventListener('submit', function(e){
       e.preventDefault();
-
+// Anti-bot : vérification du temps de remplissage
+const loadTime = parseInt(document.getElementById('formLoadTime').value) || 0;
+const timeSpent = Date.now() - loadTime;
+if (timeSpent < 3000) { // moins de 3 secondes = bot
+  console.warn('Bot détecté (formulaire trop rapide)');
+  formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
+  formMsg.className = "form-msg success";
+  formMsg.style.display = "block";
+  return; // on n'envoie rien à Apps Script
+}
       submitBtn.disabled = true;
       submitBtn.innerText = "Traitement en cours...";
       formMsg.style.display = "none";
