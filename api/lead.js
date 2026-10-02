@@ -244,14 +244,21 @@ export default async function handler(req, res) {
     // 10. VÉRIFICATION DE LA RÉPONSE GOOGLE
     // --------------------------------------------------
 
-   // Accepter les deux formats de réponse
-if (
-  googleResult.result !== "success" &&
-  googleText.trim() !== "OK"
-) {
+  
+    // Accepter plusieurs formats de réponse d'Apps Script
+    const rawText = googleText.trim();
+    const isSuccess =
+      googleResult.result === "success" ||
+      rawText === "OK" ||
+      rawText === '"OK"' ||
+      rawText.indexOf('"result":"success"') !== -1;
+
+    if (!isSuccess) {
       console.error(
         "Apps Script a refusé la demande:",
-        googleResult
+        googleResult,
+        "Raw:",
+        rawText
       );
 
       return res.status(502).json({
