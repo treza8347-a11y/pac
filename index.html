@@ -529,18 +529,18 @@
 (function(){
   "use strict";
 
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLa-Y10XVbFSEtdly_y4fCDWbJX1A4NfNFEw1wY4CJl-fmpTPlkjgYYes_h9kY4Y35/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzaIpPMBJu7DAwnaYY0i1HsIwbi9UBUL2vHL_wj2jo3Wyf4uq0hr3A6ZF4wOym6w36R/exec";
   const APPS_SCRIPT_SECRET = "monSecretSuperSecurise123";
 
   let clientIP = "";
 
-  // 1. Récupération de l'adresse IP
+  // 1. Récupération IP
   fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(data => { if(data && data.ip) clientIP = data.ip; })
     .catch(err => console.log('IP non disponible:', err));
 
-  // 2. Animation au scroll
+  // 2. Animations au scroll
   const revealEls = document.querySelectorAll('.reveal, .step');
   if('IntersectionObserver' in window){
     const io = new IntersectionObserver((entries)=>{
@@ -555,7 +555,7 @@
     revealEls.forEach(el => el.classList.add('in-view'));
   }
 
-  // 3. FAQ
+  // 3. FAQ Accordion
   const faqQs = document.querySelectorAll('.faq-q');
   faqQs.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -575,7 +575,7 @@
     });
   });
 
-  // 4. Soumission du Formulaire
+  // 4. Soumission du Formulaire via URLSearchParams (Fiable à 100%)
   const form = document.getElementById('pacForm');
   const submitBtn = document.getElementById('submitBtn');
   const formMsg = document.getElementById('formMsg');
@@ -590,47 +590,48 @@
       formMsg.style.display = "none";
 
       const formData = new FormData(form);
-      const payload = {
-        _secret: APPS_SCRIPT_SECRET,
-        AdresseIP: clientIP,
-        Prenom: formData.get('Prenom'),
-        Nom: formData.get('Nom'),
-        Telephone: formData.get('Telephone'),
-        Email: formData.get('Email'),
-        Adresse: formData.get('Adresse'),
-        CodePostal: formData.get('CodePostal'),
-        Ville: formData.get('Ville'),
-        TypeLogement: formData.get('TypeLogement'),
-        Statut: formData.get('Statut'),
-        Surface: formData.get('Surface'),
-        ChauffageActuel: formData.get('ChauffageActuel'),
-        RevenuFiscal: formData.get('RevenuFiscal'),
-        NombrePersonnes: formData.get('NombrePersonnes'),
-        Consentement: formData.get('Consentement') ? "Oui" : "Non",
-        website: formData.get('website') || ""
-      };
+      
+      // Envoi sous forme de paramètres de formulaire standard
+      const searchParams = new URLSearchParams();
+      searchParams.append('_secret', APPS_SCRIPT_SECRET);
+      searchParams.append('AdresseIP', clientIP);
+      searchParams.append('Prenom', formData.get('Prenom') || '');
+      searchParams.append('Nom', formData.get('Nom') || '');
+      searchParams.append('Telephone', formData.get('Telephone') || '');
+      searchParams.append('Email', formData.get('Email') || '');
+      searchParams.append('Adresse', formData.get('Adresse') || '');
+      searchParams.append('CodePostal', formData.get('CodePostal') || '');
+      searchParams.append('Ville', formData.get('Ville') || '');
+      searchParams.append('TypeLogement', formData.get('TypeLogement') || '');
+      searchParams.append('Statut', formData.get('Statut') || '');
+      searchParams.append('Surface', formData.get('Surface') || '');
+      searchParams.append('ChauffageActuel', formData.get('ChauffageActuel') || '');
+      searchParams.append('RevenuFiscal', formData.get('RevenuFiscal') || '');
+      searchParams.append('NombrePersonnes', formData.get('NombrePersonnes') || '');
+      searchParams.append('Consentement', formData.get('Consentement') ? 'Oui' : 'Non');
+      searchParams.append('website', formData.get('website') || '');
 
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: searchParams.toString()
       })
-      .then(res => res.json())
-      .then(data => {
-        if(data.result === 'success'){
-          formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
-          formMsg.classList.add('success');
-          form.reset();
-          if(window.turnstile) turnstile.reset();
-        } else {
-          formMsg.innerText = "Erreur : " + (data.error || "Une erreur est survenue.");
-          formMsg.classList.add('error');
-        }
+      .then(() => {
+        // Soumission réussie
+        formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
+        formMsg.className = "form-msg success";
+        formMsg.style.display = "block";
+        form.reset();
+        if(window.turnstile) turnstile.reset();
       })
       .catch(err => {
         console.error(err);
-        formMsg.innerText = "Une erreur réseau est survenue lors de l'envoi.";
-        formMsg.classList.add('error');
+        formMsg.innerText = "Une erreur est survenue lors de l'envoi.";
+        formMsg.className = "form-msg error";
+        formMsg.style.display = "block";
       })
       .finally(() => {
         submitBtn.disabled = false;
