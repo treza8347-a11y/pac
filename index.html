@@ -258,6 +258,11 @@
   .reveal.in-view{opacity:1;transform:translateY(0)}
   @media(prefers-reduced-motion:reduce){.reveal,.step{opacity:1!important;transform:none!important;transition:none!important}}
 </style>
+  <script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer>
+</script>
 </head>
 <body>
 
@@ -411,6 +416,21 @@
 
     <div class="form-card">
       <form id="pacForm">
+        <div
+  style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+  aria-hidden="true">
+
+  <label for="website">
+    Ne pas remplir ce champ
+  </label>
+
+  <input
+    type="text"
+    id="website"
+    name="website"
+    tabindex="-1"
+    autocomplete="off">
+</div>
         <div class="form-grid">
           <div class="field"><label for="prenom">Prénom</label><input type="text" id="prenom" name="Prenom" required></div>
           <div class="field"><label for="nom">Nom</label><input type="text" id="nom" name="Nom" required></div>
@@ -456,7 +476,11 @@
           <label for="consentement">J'accepte d'être contacté concernant ma demande d'étude d'éligibilité.</label>
         </div>
         <p class="form-note">Vos informations sont utilisées uniquement pour traiter votre demande.</p>
-
+<div
+  class="cf-turnstile"
+  data-sitekey="0x4AAAAAAFL35Mc3Gu6lXyB9"
+  data-theme="auto">
+</div>
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" id="submitBtn">Vérifier mon éligibilité</button>
         </div>
