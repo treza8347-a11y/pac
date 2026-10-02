@@ -244,9 +244,11 @@ export default async function handler(req, res) {
     // 10. VÉRIFICATION DE LA RÉPONSE GOOGLE
     // --------------------------------------------------
 
-    if (
-      googleResult.result !== "success"
-    ) {
+   // Accepter les deux formats de réponse
+if (
+  googleResult.result !== "success" &&
+  googleText.trim() !== "OK"
+) {
       console.error(
         "Apps Script a refusé la demande:",
         googleResult
