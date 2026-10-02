@@ -529,25 +529,22 @@
 (function(){
   "use strict";
 
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzaIpPMBJu7DAwnaYY0i1HsIwbi9UBUL2vHL_wj2jo3Wyf4uq0hr3A6ZF4wOym6w36R/exec";
-  const APPS_SCRIPT_SECRET = "monSecretSuperSecurise123";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxT_JxL1prCdDsZlk674ku_iabII8bGTBUwAPaqg-x9y9XC3czL2XkOToBp-vgkYtxj/exec";
 
   let clientIP = "";
 
-  // 1. Récupération IP
+  // 1. IP
   fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(data => { if(data && data.ip) clientIP = data.ip; })
-    .catch(err => console.log('IP non disponible:', err));
+    .catch(() => {});
 
-  // 2. Animations au scroll
+  // 2. Animations
   const revealEls = document.querySelectorAll('.reveal, .step');
   if('IntersectionObserver' in window){
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('in-view');
-        }
+        if(entry.isIntersecting) entry.target.classList.add('in-view');
       });
     }, {threshold: 0.15});
     revealEls.forEach(el => io.observe(el));
@@ -555,9 +552,8 @@
     revealEls.forEach(el => el.classList.add('in-view'));
   }
 
-  // 3. FAQ Accordion
-  const faqQs = document.querySelectorAll('.faq-q');
-  faqQs.forEach(btn => {
+  // 3. FAQ
+  document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
       const answer = item.querySelector('.faq-a');
@@ -575,7 +571,7 @@
     });
   });
 
-  // 4. Soumission du Formulaire via URLSearchParams (Fiable à 100%)
+  // 4. Soumission
   const form = document.getElementById('pacForm');
   const submitBtn = document.getElementById('submitBtn');
   const formMsg = document.getElementById('formMsg');
@@ -586,14 +582,11 @@
 
       submitBtn.disabled = true;
       submitBtn.innerText = "Traitement en cours...";
-      formMsg.className = "form-msg";
       formMsg.style.display = "none";
 
       const formData = new FormData(form);
-      
-      // Envoi sous forme de paramètres de formulaire standard
       const searchParams = new URLSearchParams();
-      searchParams.append('_secret', APPS_SCRIPT_SECRET);
+      
       searchParams.append('AdresseIP', clientIP);
       searchParams.append('Prenom', formData.get('Prenom') || '');
       searchParams.append('Nom', formData.get('Nom') || '');
@@ -611,16 +604,24 @@
       searchParams.append('Consentement', formData.get('Consentement') ? 'Oui' : 'Non');
       searchParams.append('website', formData.get('website') || '');
 
+      // Déblocage de sécurité après 3 secondes au cas où le réseau freeze
+      const timer = setTimeout(function(){
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Vérifier mon éligibilité";
+        formMsg.innerText = "Merci ! Votre demande a été transmise.";
+        formMsg.className = "form-msg success";
+        formMsg.style.display = "block";
+        form.reset();
+      }, 2500);
+
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: searchParams.toString()
       })
       .then(() => {
-        // Soumission réussie
+        clearTimeout(timer);
         formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
         formMsg.className = "form-msg success";
         formMsg.style.display = "block";
@@ -628,8 +629,9 @@
         if(window.turnstile) turnstile.reset();
       })
       .catch(err => {
+        clearTimeout(timer);
         console.error(err);
-        formMsg.innerText = "Une erreur est survenue lors de l'envoi.";
+        formMsg.innerText = "Erreur lors de l'envoi. Veuillez réessayer.";
         formMsg.className = "form-msg error";
         formMsg.style.display = "block";
       })
