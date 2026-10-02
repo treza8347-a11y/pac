@@ -48,7 +48,7 @@
   img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--container);margin:0 auto;padding:0 24px}
-  section{padding:96px 0}
+  section{padding:80px 0}
   .eyebrow{color:var(--blue-600);font-weight:700;font-size:.95rem;margin-bottom:14px;display:block}
   .lead{color:var(--gray-600);font-size:1.15rem;max-width:640px}
   .center{text-align:center;margin-left:auto;margin-right:auto}
@@ -56,7 +56,7 @@
   /* Buttons */
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    padding:17px 34px;border-radius:100px;font-weight:700;font-size:1rem;
+    padding:16px 30px;border-radius:100px;font-weight:700;font-size:1rem;
     border:none;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
     font-family:'Manrope',sans-serif;
   }
@@ -81,182 +81,173 @@
   .nav .btn-primary{padding:12px 24px;font-size:.9rem}
   @media(max-width:860px){.nav-links{display:none}}
 
-  /* Hero */
+  /* Hero avec Formulaire */
   .hero{
     background:radial-gradient(circle at 15% 0%,#12335f 0%,var(--navy-950) 55%);
-    color:#fff;padding:80px 0 110px;position:relative;overflow:hidden;
+    color:#fff;padding:60px 0 80px;position:relative;overflow:hidden;
   }
   .hero::after{
     content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;
     background:radial-gradient(circle,rgba(31,169,113,.22),transparent 70%);
   }
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative;z-index:1}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;position:relative;z-index:1}
   .hero-badge{
     display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);
     border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:100px;
-    font-size:.85rem;color:#d8e3f7;margin-bottom:26px;
+    font-size:.85rem;color:#d8e3f7;margin-bottom:20px;
   }
   .hero-badge span.dot{width:7px;height:7px;border-radius:50%;background:var(--green-500)}
-  .hero h1{font-size:clamp(2.4rem,4.4vw,3.6rem);letter-spacing:-.02em;color:#fff}
-  .hero .lead{color:#c7d4ea;margin-top:20px;font-size:1.2rem;max-width:520px}
-  .hero-conditions{color:#93a5c4;font-size:.88rem;margin-top:16px;max-width:480px}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:34px;align-items:center}
-  .hero-reassurance{display:flex;align-items:center;gap:10px;color:#a9b9d6;font-size:.92rem;margin-top:26px}
+  .hero h1{font-size:clamp(2.1rem,3.8vw,3.2rem);letter-spacing:-.02em;color:#fff}
+  .hero .lead{color:#c7d4ea;margin-top:16px;font-size:1.1rem;max-width:520px}
+  .hero-conditions{color:#93a5c4;font-size:.85rem;margin-top:14px;max-width:480px}
+  .hero-reassurance{display:flex;align-items:center;gap:10px;color:#a9b9d6;font-size:.9rem;margin-top:20px}
   .hero-reassurance svg{flex-shrink:0}
-  .hero-media{position:relative}
-  .hero-media img{
-    border-radius:var(--radius-lg);box-shadow:0 30px 70px -20px rgba(0,0,0,.55);
-    width:100%;aspect-ratio:4/5;object-fit:cover;
+
+  /* Carte Formulaire Hero */
+  .hero-form-card{
+    background:#fff;color:var(--navy-900);border-radius:var(--radius-lg);
+    padding:32px 28px;box-shadow:0 20px 50px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.2);
   }
-  .hero-stat-card{
-    position:absolute;left:-28px;bottom:-24px;background:#fff;color:var(--navy-950);
-    padding:20px 24px;border-radius:var(--radius-md);box-shadow:var(--shadow-soft);
-    min-width:200px;
+  .hero-form-card h3{font-size:1.35rem;margin-bottom:6px;color:var(--navy-950)}
+  .hero-form-card p.form-subtitle{font-size:.88rem;color:var(--gray-600);margin-bottom:20px}
+
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field.full{grid-column:1/-1}
+  .field label{font-size:.82rem;font-weight:600;color:var(--navy-800)}
+  .field input, .field select{
+    border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);padding:10px 12px;
+    font-size:.9rem;font-family:'Inter',sans-serif;color:var(--navy-900);background:#fff;
+    transition:border-color .2s ease, box-shadow .2s ease;
   }
-  .hero-stat-card .num{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.7rem;color:var(--blue-600)}
-  .hero-stat-card .label{font-size:.82rem;color:var(--gray-600);margin-top:2px}
-  @media(max-width:900px){
+  .field input:focus, .field select:focus{
+    outline:none;border-color:var(--blue-600);box-shadow:0 0 0 3px rgba(47,111,235,.15);
+  }
+  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px}
+  .consent input{margin-top:3px;width:16px;height:16px;accent-color:var(--blue-600);flex-shrink:0}
+  .consent label{font-size:.8rem;color:var(--gray-600)}
+  .form-note{font-size:.75rem;color:var(--gray-500);margin-top:10px}
+  .form-actions{margin-top:20px}
+  .form-actions .btn{width:100%}
+  .form-msg{margin-top:16px;padding:12px 14px;border-radius:var(--radius-sm);font-size:.88rem;display:none}
+  .form-msg.success{display:block;background:#ecfdf3;color:var(--green-600);border:1px solid #b7ecd2}
+  .form-msg.error{display:block;background:#fef2f2;color:#b42318;border:1px solid #fecdca}
+
+  @media(max-width:960px){
     .hero-grid{grid-template-columns:1fr}
-    .hero-media{order:-1}
-    .hero-stat-card{left:16px}
+    .hero-form-card{margin-top:10px}
+  }
+  @media(max-width:600px){
+    .form-grid{grid-template-columns:1fr}
+    .hero-form-card{padding:24px 18px}
   }
 
   /* Why section */
-  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:52px}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
   .why-card{
-    background:var(--gray-50);border-radius:var(--radius-md);padding:32px 26px;
+    background:var(--gray-50);border-radius:var(--radius-md);padding:28px 22px;
     border:1px solid var(--gray-100);
   }
   .why-icon{
-    width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg,var(--blue-600),var(--green-500));margin-bottom:20px;
+    width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--blue-600),var(--green-500));margin-bottom:18px;
   }
-  .why-card h3{font-size:1.1rem;margin-bottom:10px}
-  .why-card p{color:var(--gray-600);font-size:.96rem}
+  .why-card h3{font-size:1.05rem;margin-bottom:8px}
+  .why-card p{color:var(--gray-600);font-size:.92rem}
   @media(max-width:960px){.why-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:600px){.why-grid{grid-template-columns:1fr}}
 
-  /* Image + text section */
+  /* Split Section */
   .split-section{background:var(--gray-50)}
-  .split-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .split-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
   .split-grid img{border-radius:var(--radius-lg);box-shadow:var(--shadow-card);width:100%;aspect-ratio:5/4;object-fit:cover}
   .split-text h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:20px}
   .split-text p{color:var(--gray-600);font-size:1.05rem;margin-bottom:28px}
   @media(max-width:900px){.split-grid{grid-template-columns:1fr}.split-grid img{order:-1}}
 
   /* Eligibility */
-  .elig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+  .elig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
   .elig-card{
-    display:flex;gap:16px;align-items:flex-start;padding:24px;border-radius:var(--radius-md);
+    display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:var(--radius-md);
     border:1px solid var(--gray-100);background:#fff;box-shadow:var(--shadow-card);
   }
   .elig-check{
-    width:36px;height:36px;border-radius:10px;background:rgba(31,169,113,.12);color:var(--green-600);
+    width:32px;height:32px;border-radius:8px;background:rgba(31,169,113,.12);color:var(--green-600);
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
-  .elig-card h4{font-size:1rem;margin-bottom:6px}
-  .elig-card p{font-size:.9rem;color:var(--gray-600)}
+  .elig-card h4{font-size:.95rem;margin-bottom:4px}
+  .elig-card p{font-size:.88rem;color:var(--gray-600)}
   .elig-note{
-    margin-top:40px;background:#fff7ed;border:1px solid #fde3b8;color:#8a5a12;
-    padding:18px 22px;border-radius:var(--radius-md);font-size:.94rem;
+    margin-top:36px;background:#fff7ed;border:1px solid #fde3b8;color:#8a5a12;
+    padding:16px 20px;border-radius:var(--radius-md);font-size:.9rem;
   }
   @media(max-width:900px){.elig-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:600px){.elig-grid{grid-template-columns:1fr}}
 
-  /* Process timeline */
+  /* Timeline */
   .process-section{background:var(--navy-950);color:#fff}
   .process-section .eyebrow{color:#6fa3ff}
   .process-section h2{color:#fff}
   .process-section .lead{color:#a9b9d6}
-  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px;position:relative}
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;position:relative}
   .timeline::before{
-    content:"";position:absolute;top:26px;left:8%;right:8%;height:2px;
+    content:"";position:absolute;top:24px;left:8%;right:8%;height:2px;
     background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.25),rgba(255,255,255,.05));
     z-index:0;
   }
   .step{position:relative;z-index:1;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
   .step.in-view{opacity:1;transform:translateY(0)}
   .step-num{
-    width:52px;height:52px;border-radius:50%;background:var(--navy-800);border:1.5px solid rgba(255,255,255,.18);
+    width:48px;height:48px;border-radius:50%;background:var(--navy-800);border:1.5px solid rgba(255,255,255,.18);
     display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;
-    color:#fff;margin-bottom:22px;
+    color:#fff;margin-bottom:18px;
   }
-  .step h4{color:#fff;font-size:1.05rem;margin-bottom:8px}
-  .step p{color:#93a5c4;font-size:.9rem}
+  .step h4{color:#fff;font-size:1rem;margin-bottom:6px}
+  .step p{color:#93a5c4;font-size:.88rem}
   @media(max-width:900px){.timeline{grid-template-columns:1fr 1fr}.timeline::before{display:none}}
   @media(max-width:600px){.timeline{grid-template-columns:1fr}}
 
-  /* Reassurance strip */
+  /* Strip */
   .strip{background:var(--gray-50);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100)}
-  .strip .wrap{padding:36px 24px;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:center}
-  .strip-item{display:flex;align-items:center;gap:10px;font-size:.92rem;color:var(--gray-700);font-weight:500}
+  .strip .wrap{padding:28px 24px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+  .strip-item{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--gray-700);font-weight:500}
   .strip-item svg{color:var(--green-600);flex-shrink:0}
 
-  /* Form section */
-  .form-section{background:linear-gradient(180deg,var(--gray-50),#fff)}
-  .form-card{
-    background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);
-    border:1px solid var(--gray-100);padding:48px;max-width:880px;margin:52px auto 0;
-  }
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 24px}
-  .field{display:flex;flex-direction:column;gap:8px}
-  .field.full{grid-column:1/-1}
-  .field label{font-size:.86rem;font-weight:600;color:var(--navy-800)}
-  .field input, .field select{
-    border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);padding:13px 15px;
-    font-size:.96rem;font-family:'Inter',sans-serif;color:var(--navy-900);background:#fff;
-    transition:border-color .2s ease, box-shadow .2s ease;
-  }
-  .field input:focus, .field select:focus{
-    outline:none;border-color:var(--blue-600);box-shadow:0 0 0 3px rgba(47,111,235,.15);
-  }
-  .consent{display:flex;gap:12px;align-items:flex-start;margin-top:28px}
-  .consent input{margin-top:4px;width:18px;height:18px;accent-color:var(--blue-600);flex-shrink:0}
-  .consent label{font-size:.88rem;color:var(--gray-600)}
-  .form-note{font-size:.8rem;color:var(--gray-500);margin-top:14px}
-  .form-actions{margin-top:32px}
-  .form-actions .btn{width:100%}
-  .form-msg{margin-top:20px;padding:16px 18px;border-radius:var(--radius-sm);font-size:.92rem;display:none}
-  .form-msg.success{display:block;background:#ecfdf3;color:var(--green-600);border:1px solid #b7ecd2}
-  .form-msg.error{display:block;background:#fef2f2;color:#b42318;border:1px solid #fecdca}
-  @media(max-width:700px){.form-grid{grid-template-columns:1fr}.form-card{padding:30px 22px}}
-
   /* FAQ */
-  .faq-list{max-width:800px;margin:48px auto 0}
+  .faq-list{max-width:800px;margin:40px auto 0}
   .faq-item{border-bottom:1px solid var(--gray-100)}
   .faq-q{
-    width:100%;background:none;border:none;text-align:left;padding:22px 4px;
+    width:100%;background:none;border:none;text-align:left;padding:20px 4px;
     display:flex;justify-content:space-between;align-items:center;gap:16px;cursor:pointer;
-    font-family:'Manrope',sans-serif;font-weight:700;font-size:1.02rem;color:var(--navy-950);
+    font-family:'Manrope',sans-serif;font-weight:700;font-size:1rem;color:var(--navy-950);
   }
   .faq-q .plus{flex-shrink:0;transition:transform .25s ease;color:var(--blue-600)}
   .faq-item.open .plus{transform:rotate(45deg)}
   .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
-  .faq-a p{padding:0 4px 22px;color:var(--gray-600);font-size:.95rem;max-width:680px}
+  .faq-a p{padding:0 4px 20px;color:var(--gray-600);font-size:.92rem;max-width:680px}
 
-  /* Final CTA */
+  /* CTA */
   .final-cta{
     background:radial-gradient(circle at 80% 20%,#17835a 0%,var(--navy-950) 60%);
     color:#fff;text-align:center;
   }
-  .final-cta h2{color:#fff;font-size:clamp(1.9rem,3.6vw,2.7rem);max-width:720px;margin:0 auto}
-  .final-cta p{color:#c7d4ea;max-width:560px;margin:20px auto 0;font-size:1.08rem}
-  .final-cta .btn{margin-top:34px}
+  .final-cta h2{color:#fff;font-size:clamp(1.8rem,3.4vw,2.5rem);max-width:720px;margin:0 auto}
+  .final-cta p{color:#c7d4ea;max-width:560px;margin:18px auto 0;font-size:1.05rem}
+  .final-cta .btn{margin-top:28px}
 
   /* Footer */
-  footer{background:var(--navy-950);color:#93a5c4;padding:56px 0 28px;font-size:.9rem}
-  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.08)}
-  .footer-grid h5{color:#fff;font-family:'Manrope',sans-serif;font-size:.9rem;margin-bottom:16px}
+  footer{background:var(--navy-950);color:#93a5c4;padding:48px 0 24px;font-size:.88rem}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .footer-grid h5{color:#fff;font-family:'Manrope',sans-serif;font-size:.88rem;margin-bottom:14px}
   .footer-grid ul{list-style:none}
-  .footer-grid li{margin-bottom:10px}
+  .footer-grid li{margin-bottom:8px}
   .footer-grid a:hover{color:#fff}
-  .footer-brand{color:#fff;font-family:'Manrope',sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:12px}
-  .footer-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.82rem}
+  .footer-brand{color:#fff;font-family:'Manrope',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:10px}
+  .footer-bottom{padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.8rem}
   @media(max-width:700px){.footer-grid{grid-template-columns:1fr}}
 
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease}
   .reveal.in-view{opacity:1;transform:translateY(0)}
-  @media(prefers-reduced-motion:reduce){.reveal,.step{opacity:1!important;transform:none!important;transition:none!important}}
 </style>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
@@ -279,31 +270,97 @@
   </div>
 </header>
 
-<section class="hero">
+<!-- SECTION HERO AVEC LE FORMULAIRE DIRECTEMENT VISIBLE -->
+<section class="hero" id="formulaire">
   <div class="wrap hero-grid">
     <div>
       <div class="hero-badge"><span class="dot"></span> Étude d'éligibilité gratuite</div>
-      <h1>Pompe à chaleur à 1 € <span>Reste à charge net après subventions d'État</span> </h1>
+      <h1>Pompe à chaleur à 1 € <span>Reste à charge net après subventions d'État</span></h1>
       <p class="lead">Réduisez vos dépenses énergétiques et améliorez le confort de votre logement grâce à une solution de chauffage plus performante.</p>
       <p class="hero-conditions">Offre soumise à conditions d'éligibilité (ressources, logement, zone géographique). Une étude personnalisée est nécessaire pour confirmer votre situation.</p>
-      <div class="hero-actions">
-        <a href="#formulaire" class="btn btn-primary">Tester mon éligibilité</a>
-        <a href="#pourquoi" class="btn btn-outline">Comment ça marche</a>
-      </div>
+      
       <div class="hero-reassurance">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z" stroke="#1fa971" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="#1fa971" stroke-width="1.8" stroke-linecap="round"/></svg>
         Étude d'éligibilité gratuite et sans engagement
       </div>
     </div>
-    <div class="hero-media">
-      <img src="https://images.unsplash.com/photo-1776860150305-108ed577d7d4?auto=format&fit=crop&w=1000&q=80" alt="Installation d'une pompe à chaleur extérieure sur une maison individuelle" loading="lazy">
-      <div class="hero-stat-card">
-        <div class="num">1 € Reste à charge net après subventions d'État</div>
-        <div class="label">Sous conditions d'éligibilité</div>
-      </div>
+
+    <!-- CARTE FORMULAIRE DIRECTEMENT DANS LE HERO -->
+    <div class="hero-form-card">
+      <h3>Vérifier mon éligibilité</h3>
+      <p class="form-subtitle">Remplissez le formulaire pour lancer votre étude gratuite.</p>
+
+      <form id="pacForm">
+        <!-- Honeypot -->
+        <div style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+          <label for="website">Ne pas remplir ce champ</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-grid">
+          <div class="field"><label for="prenom">Prénom</label><input type="text" id="prenom" name="Prenom" required></div>
+          <div class="field"><label for="nom">Nom</label><input type="text" id="nom" name="Nom" required></div>
+          <div class="field"><label for="telephone">Téléphone</label><input type="tel" id="telephone" name="Telephone" required></div>
+          <div class="field"><label for="email">Email</label><input type="email" id="email" name="Email" required></div>
+          <div class="field full"><label for="adresse">Adresse</label><input type="text" id="adresse" name="Adresse" required></div>
+          <div class="field"><label for="cp">Code postal</label><input type="text" id="cp" name="CodePostal" required></div>
+          <div class="field"><label for="ville">Ville</label><input type="text" id="ville" name="Ville" required></div>
+          <div class="field">
+            <label for="typeLogement">Type de logement</label>
+            <select id="typeLogement" name="TypeLogement" required>
+              <option value="">Sélectionnez</option>
+              <option value="Maison individuelle">Maison individuelle</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="statut">Vous êtes</label>
+            <select id="statut" name="Statut" required>
+              <option value="">Sélectionnez</option>
+              <option value="Propriétaire">Propriétaire</option>
+              <option value="Locataire">Locataire</option>
+            </select>
+          </div>
+          <div class="field"><label for="surface">Surface (m²)</label><input type="number" id="surface" name="Surface" min="1" required></div>
+          <div class="field">
+            <label for="chauffage">Chauffage actuel</label>
+            <select id="chauffage" name="ChauffageActuel" required>
+              <option value="">Sélectionnez</option>
+              <option value="Électrique">Électrique</option>
+              <option value="Fioul">Fioul</option>
+              <option value="Gaz">Gaz</option>
+              <option value="Bois">Bois</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div class="field"><label for="revenu">Revenu fiscal (€)</label><input type="number" id="revenu" name="RevenuFiscal" min="0" required></div>
+          <div class="field"><label for="foyer">Personnes au foyer</label><input type="number" id="foyer" name="NombrePersonnes" min="1" required></div>
+        </div>
+
+        <div class="consent">
+          <input type="checkbox" id="consentement" name="Consentement" required>
+          <label for="consentement">J'accepte d'être contacté concernant ma demande d'étude d'éligibilité.</label>
+        </div>
+
+        <div style="margin-top:14px;" class="cf-turnstile" data-sitekey="0x4AAAAAAFL35Mc3Gu6lXyB9" data-theme="auto"></div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">Vérifier mon éligibilité</button>
+        </div>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
     </div>
   </div>
 </section>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Étude gratuite</div>
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Sans engagement</div>
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Accompagnement dédié</div>
+    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Données sécurisées</div>
+  </div>
+</div>
 
 <section id="pourquoi">
   <div class="wrap">
@@ -394,87 +451,6 @@
   </div>
 </section>
 
-<div class="strip">
-  <div class="wrap">
-    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Étude d'éligibilité</div>
-    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Demande sans engagement</div>
-    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Accompagnement personnalisé</div>
-    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Formulaire sécurisé</div>
-    <div class="strip-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Réponse rapide</div>
-  </div>
-</div>
-
-<section class="form-section" id="formulaire">
-  <div class="wrap">
-    <span class="eyebrow center" style="display:block;text-align:center">Étude d'éligibilité</span>
-    <h2 class="center" style="max-width:600px;font-size:clamp(1.8rem,3vw,2.3rem)">Vérifiez votre éligibilité gratuitement</h2>
-    <p class="lead center">Quelques informations suffisent pour effectuer votre première étude.</p>
-
-    <div class="form-card">
-      <form id="pacForm">
-        <!-- Champ Honeypot masqué -->
-        <div style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
-          <label for="website">Ne pas remplir ce champ</label>
-          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-        </div>
-
-        <div class="form-grid">
-          <div class="field"><label for="prenom">Prénom</label><input type="text" id="prenom" name="Prenom" required></div>
-          <div class="field"><label for="nom">Nom</label><input type="text" id="nom" name="Nom" required></div>
-          <div class="field"><label for="telephone">Téléphone</label><input type="tel" id="telephone" name="Telephone" required></div>
-          <div class="field"><label for="email">Email</label><input type="email" id="email" name="Email" required></div>
-          <div class="field full"><label for="adresse">Adresse</label><input type="text" id="adresse" name="Adresse" required></div>
-          <div class="field"><label for="cp">Code postal</label><input type="text" id="cp" name="CodePostal" required></div>
-          <div class="field"><label for="ville">Ville</label><input type="text" id="ville" name="Ville" required></div>
-          <div class="field">
-            <label for="typeLogement">Type de logement</label>
-            <select id="typeLogement" name="TypeLogement" required>
-              <option value="">Sélectionnez</option>
-              <option value="Maison individuelle">Maison individuelle</option>
-              <option value="Autre">Autre</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="statut">Vous êtes</label>
-            <select id="statut" name="Statut" required>
-              <option value="">Sélectionnez</option>
-              <option value="Propriétaire">Propriétaire</option>
-              <option value="Locataire">Locataire</option>
-            </select>
-          </div>
-          <div class="field"><label for="surface">Surface du logement (m²)</label><input type="number" id="surface" name="Surface" min="1" required></div>
-          <div class="field">
-            <label for="chauffage">Mode de chauffage actuel</label>
-            <select id="chauffage" name="ChauffageActuel" required>
-              <option value="">Sélectionnez</option>
-              <option value="Électrique">Électrique</option>
-              <option value="Fioul">Fioul</option>
-              <option value="Gaz">Gaz</option>
-              <option value="Bois">Bois</option>
-              <option value="Autre">Autre</option>
-            </select>
-          </div>
-          <div class="field"><label for="revenu">Revenu fiscal de référence (€)</label><input type="number" id="revenu" name="RevenuFiscal" min="0" required></div>
-          <div class="field"><label for="foyer">Nombre de personnes dans le foyer</label><input type="number" id="foyer" name="NombrePersonnes" min="1" required></div>
-        </div>
-
-        <div class="consent">
-          <input type="checkbox" id="consentement" name="Consentement" required>
-          <label for="consentement">J'accepte d'être contacté concernant ma demande d'étude d'éligibilité.</label>
-        </div>
-        <p class="form-note">Vos informations sont utilisées uniquement pour traiter votre demande.</p>
-        
-        <div style="margin-top:20px;" class="cf-turnstile" data-sitekey="0x4AAAAAAFL35Mc3Gu6lXyB9" data-theme="auto"></div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary" id="submitBtn">Vérifier mon éligibilité</button>
-        </div>
-        <div class="form-msg" id="formMsg"></div>
-      </form>
-    </div>
-  </div>
-</section>
-
 <section id="faq">
   <div class="wrap">
     <span class="eyebrow center" style="display:block;text-align:center">Questions fréquentes</span>
@@ -553,19 +529,18 @@
 (function(){
   "use strict";
 
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqExQ-KiNqknhcQ3VC12yj9II8BOUwfUIbVXLEIb2MeFx6yZw13bJyDrjuHE0u6fUX/exec";
-  // REMPLACER PAR VOTRE VRAI SECRET RESTE IDENTIQUE À CE QU'IL Y A DANS APPS SCRIPT
-  const APPS_SCRIPT_SECRET = "0x4AAAAAAFL35IPd8pBS2YCn2727fR6EYic";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoCimL96ktkzb4GGrgF_wgJOmPCJIIk244xItOjyx0m-5K8LmNvXgNw16CYXoAyzGT/exec";
+  const APPS_SCRIPT_SECRET = "monSecretSuperSecurise123";
 
   let clientIP = "";
 
-  // 1. Récupération de l'adresse IP dès le chargement de la page
+  // 1. Récupération de l'adresse IP
   fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(data => { if(data && data.ip) clientIP = data.ip; })
     .catch(err => console.log('IP non disponible:', err));
 
-  // 2. Animation d'affichage au scroll
+  // 2. Animation au scroll
   const revealEls = document.querySelectorAll('.reveal, .step');
   if('IntersectionObserver' in window){
     const io = new IntersectionObserver((entries)=>{
@@ -580,7 +555,7 @@
     revealEls.forEach(el => el.classList.add('in-view'));
   }
 
-  // 3. Gestion Accordéon FAQ
+  // 3. FAQ
   const faqQs = document.querySelectorAll('.faq-q');
   faqQs.forEach(btn => {
     btn.addEventListener('click', () => {
