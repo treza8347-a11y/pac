@@ -669,17 +669,22 @@ if (form) {
           : false;
 
       // Envoi vers notre API Vercel
-      const response = await fetch('/api/lead', {
+     const ipResponse = await fetch('https://api.ipify.org?format=json');
+const ipData = await ipResponse.json();
 
-        method: 'POST',
+data.AdresseIP = ipData.ip;
 
-        headers: {
-          'Content-Type': 'application/json'
-        },
+const response = await fetch('/api/lead', {
 
-        body: JSON.stringify(data)
+  method: 'POST',
 
-      });
+  headers: {
+    'Content-Type': 'application/json'
+  },
+
+  body: JSON.stringify(data)
+
+});
 
       const result = await response.json();
 
