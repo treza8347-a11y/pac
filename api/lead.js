@@ -192,6 +192,7 @@ export default async function handler(req, res) {
       ChauffageActuel: String(body.ChauffageActuel).trim(),
       RevenuFiscal: String(body.RevenuFiscal).trim(),
       NombrePersonnes: String(body.NombrePersonnes).trim(),
+      AdresseIP: ip,
       Consentement: true,
 
       _secret: appsScriptSecret
