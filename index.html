@@ -250,6 +250,21 @@
   .reveal.in-view{opacity:1;transform:translateY(0)}
 </style>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <!-- Facebook Pixel Code (À PLACER DANS LE HEAD)  -->
+  <!-- ============================================ -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2906304156399908');
+    fbq('track', 'PageView');
+  </script>
+  <!-- End Facebook Pixel Code -->
 </head>
 <body>
 
@@ -561,10 +576,11 @@
 
       document.querySelectorAll('.faq-item').forEach(i => {
         i.classList.remove('open');
-        i.querySelector('.faq-a').style.maxHeight = null;
+        const a = i.querySelector('.faq-a');
+        if(a) a.style.maxHeight = null;
       });
 
-      if(!isOpen){
+      if(!isOpen && answer){
         item.classList.add('open');
         answer.style.maxHeight = answer.scrollHeight + 'px';
       }
@@ -580,9 +596,11 @@
     form.addEventListener('submit', function(e){
       e.preventDefault();
 
-      submitBtn.disabled = true;
-      submitBtn.innerText = "Traitement en cours...";
-      formMsg.style.display = "none";
+      if(submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Traitement en cours...";
+      }
+      if(formMsg) formMsg.style.display = "none";
 
       const formData = new FormData(form);
       const searchParams = new URLSearchParams();
@@ -603,22 +621,34 @@
         body: searchParams.toString()
       })
       .then(() => {
-        formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
-        formMsg.className = "form-msg success";
-        formMsg.style.display = "block";
+        // Déclenche l'événement "Lead" (Prospect) dans Facebook Pixel
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead');
+        }
+
+        if(formMsg) {
+          formMsg.innerText = "Merci ! Votre demande a été enregistrée avec succès.";
+          formMsg.className = "form-msg success";
+          formMsg.style.display = "block";
+        }
+
         form.reset();
         if(window.turnstile) turnstile.reset();
       })
       .catch(err => {
         console.error(err);
-        formMsg.innerText = "Merci ! Votre demande a bien été soumise.";
-        formMsg.className = "form-msg success";
-        formMsg.style.display = "block";
+        if(formMsg) {
+          formMsg.innerText = "Merci ! Votre demande a bien été soumise.";
+          formMsg.className = "form-msg success";
+          formMsg.style.display = "block";
+        }
         form.reset();
       })
       .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Vérifier mon éligibilité";
+        if(submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = "Vérifier mon éligibilité";
+        }
       });
     });
   }
