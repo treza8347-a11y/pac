@@ -217,7 +217,7 @@ export default async function handler(req, res) {
     }
 
     const googleResponse = await fetch(
-      appsScriptUrl,
+     appsScriptUrl + "?AdresseIP=" + encodeURIComponent(ip),
       {
         method: "POST",
         headers: {
