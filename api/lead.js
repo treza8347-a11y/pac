@@ -46,10 +46,12 @@ export default async function handler(req, res) {
       });
     }
 
-    const ip =
-      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
-      req.headers["x-real-ip"] ||
-      "";
+   const ip =
+  req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+  req.headers["x-real-ip"]?.trim() ||
+  req.headers["x-vercel-forwarded-for"]?.trim() ||
+  req.socket?.remoteAddress ||
+  "";
 
     const verificationResponse = await fetch(
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
